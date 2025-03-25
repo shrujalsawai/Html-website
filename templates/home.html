@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Doctor Appointment Booking</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .description {
+            margin-bottom: 20px;
+        }
+        .image {
+            width: 100%;
+            max-width: 400px;
+            margin: 20px auto;
+            border-radius: 8px;
+        }
+        .booking-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Doctor Appointment Booking</h1>
+        <div class="description">
+            <p>Welcome to our Doctor Appointment Booking platform. Easily book appointments with specialized doctors for various healthcare needs.</p>
+            <img src="{{ url_for('static', filename='images/image.jpg') }}" alt="Doctor Image" class="image">
+        </div>
+
+        <h1>Your Appointments</h1>
+
+        <div class="appointment-container" id="appointments">
+            {% for appointment in appointments %}
+            <div class="appointment-card">
+                <p><strong>Patient Name:</strong> {{ appointment.patient_name }}</p>
+                <p><strong>Doctor Name:</strong> {{ appointment.doctor_name }}</p>
+                <p><strong>Appointment Type:</strong> {{ appointment.appointment_type }}</p>
+            </div>
+            {% endfor %}
+        </div>
+
+        <h2>Choose Your Appointment Type</h2>
+        <div class="booking-buttons">
+            <button class="button" onclick="location.href='/book/General Physician'">General Physician</button>
+            <button class="button" onclick="location.href='/book/Dentist'">Dentist</button>
+            <button class="button" onclick="location.href='/book/Pediatrician'">Pediatrician</button>
+        </div>
+    </div>
+
+    <script>
+        function bookAppointment() {
+            const data = {
+                patient_name: document.getElementById('patient-name').value,
+                doctor_name: document.getElementById('doctor-name').value,
+                appointment_type: document.getElementById('appointment-type').value
+            };
+
+            fetch('/book_appointment', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);
+                location.reload(); // Refresh the page to show new appointments
+            })
+            .catch(error => console.error('Error:', error));
+        }
+    </script>
+</body>
+</html>

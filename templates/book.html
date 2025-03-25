@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Book Appointment</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; background-color: #f4f4f4; }
+        .form-container { max-width: 500px; margin: auto; padding: 20px; background-color: white; border-radius: 8px; }
+        input { margin: 10px; padding: 8px; width: 90%; }
+        button { padding: 10px 20px; background-color: #007bff; color: white; border: none; cursor: pointer; }
+        button:hover { background-color: #0056b3; }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1>Book Appointment - {{ appointment_type }}</h1>
+        <form method="POST">
+            <input type="text" name="patient_name" placeholder="Enter Your Name" required><br>
+            <input type="text" name="doctor_name" placeholder="Enter Doctor's Name" required><br>
+            <input type="date" name="date" required><br>
+            <button type="submit">Book Appointment</button>
+        </form>
+    </div>
+</body>
+</html>

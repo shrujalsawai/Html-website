@@ -63,12 +63,13 @@ def signup():
 
 @app.route('/home')
 def home():
-    if 'user_id' not in session:
-        return redirect(url_for('index'))
+    # if 'user_id' not in session:
+    #     return redirect(url_for('index'))
 
-    user_id = session['user_id']
-    appointments = Appointment.query.filter_by(user_id=user_id).all()
-    return render_template('home.html', appointments=appointments)
+    # user_id = session['user_id']
+    # appointments = Appointment.query.filter_by(user_id=user_id).all()
+    # return render_template('home.html', appointments=appointments)
+    return render_template('home.html')
 
 @app.route('/login', methods=['POST'])
 def login():

@@ -9,11 +9,24 @@
         button { padding: 10px 20px; background-color: #007bff; color: white; border: none; cursor: pointer; }
         button:hover { background-color: #0056b3; }
     </style>
+    <script>
+        function showAlert(event) {
+            event.preventDefault(); 
+
+            var patientName = document.getElementsByName('patient_name')[0].value;
+            var doctorName = document.getElementsByName('doctor_name')[0].value;
+            var appointmentDate = document.getElementsByName('date')[0].value;
+
+            alert("Appointment booked successfully for " + patientName + " with Dr. " + doctorName + " on " + appointmentDate);
+            
+            document.getElementById("appointment-form").reset(); // Reset the form
+        }
+    </script>
 </head>
 <body>
     <div class="form-container">
         <h1>Book Appointment - {{ appointment_type }}</h1>
-        <form method="POST">
+        <form id="appointment-form" onsubmit="showAlert(event)">
             <input type="text" name="patient_name" placeholder="Enter Your Name" required><br>
             <input type="text" name="doctor_name" placeholder="Enter Doctor's Name" required><br>
             <input type="date" name="date" required><br>
